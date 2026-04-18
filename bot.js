@@ -5,8 +5,9 @@ function createBot() {
     host: 'chickiennn.aternos.me', 
     port: 55125, 
     username: 'BotFarmQuai'
+    
   })
-
+  let started = false
   let isEating = false // Biến trạng thái để kiểm soát: Đang ăn thì không chém
 
   async function equipSword() {
@@ -24,6 +25,14 @@ function createBot() {
   bot.on('spawn', () => {
     console.log('✅ Bot đã sẵn sàng FARM!')
     equipSword()
+  
+  if (started) return   // 👈 thêm ở đây
+    started = true  
+      // Auto relog mỗi 10 phút
+  setInterval(() => {
+    console.log('♻️ Auto relog...')
+    bot.quit()
+  }, 600000)
 
     // 1. Chu kỳ chém quái
     setInterval(() => {
@@ -98,6 +107,10 @@ function createBot() {
   bot.on('error', () => {
     setTimeout(createBot, 10000)
   })
+  bot.on('end', () => {
+  console.log('🔁 Reconnect sau 5s...')
+  setTimeout(createBot, 5000)
+})
 }
 
 createBot()
