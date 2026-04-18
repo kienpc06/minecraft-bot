@@ -32,7 +32,7 @@ function createBot() {
   setInterval(() => {
     console.log('♻️ Auto relog...')
     bot.quit()
-  }, 600000)
+  }, 300000)
 
     // 1. Chu kỳ chém quái
     setInterval(() => {
